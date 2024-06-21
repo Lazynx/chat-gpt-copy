@@ -11,7 +11,7 @@ interface Message {
 }
 
 export default function Home() {
-  const { messages, sendMessage, clearMessages } = useWebSocket('ws://localhost:8000');
+  const { messages, sendMessage, clearMessages } = useWebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL);
   const [prompt, setPrompt] = useState('');
   const [chatMessages, setChatMessages] = useState<Message[]>([]);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);

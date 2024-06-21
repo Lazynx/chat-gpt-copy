@@ -7,6 +7,7 @@ import { wss } from './chat/chat.router';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN;
 
 app.use(logger);
 app.use(express.json());
@@ -18,7 +19,7 @@ const server = http.createServer(app);
 server.on('upgrade', (request, socket, head) => {
   const origin = request.headers.origin;
   // Validate the origin before proceeding
-  if (origin === 'http://localhost:3000') {
+  if (origin === ALLOWED_ORIGIN) {
     wss.handleUpgrade(request, socket, head, (ws) => {
       wss.emit('connection', ws, request);
     });
